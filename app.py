@@ -4,6 +4,51 @@ import joblib
 import kagglehub as kh
 import os
 
+# =======================================
+# PAPEL DE PAREDE DE FUNDO (OPCIONAL)
+# =======================================
+# Cole o link de uma imagem da internet aqui (terminando em .jpg ou .png)
+link_da_imagem = "https://images.seeklogo.com/logo-png/62/1/2026-fifa-world-cup-logo-png_seeklogo-624583.png"
+
+css_fundo = f"""
+<style>
+[data-testid="stAppViewContainer"] {{
+    /* O 'rgba(14, 17, 23, 0.85)' cria uma camada escura de 85% em cima da imagem branca */
+    background: linear-gradient(rgba(14, 17, 23, 0.85), rgba(14, 17, 23, 0.85)), url("{link_da_imagem}");
+    background-attachment: fixed;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}}
+/* Deixa o fundo levemente escuro para o texto dar leitura */
+[data-testid="stHeader"] {{
+    background: rgba(0, 0, 0, 0);
+}}
+
+/* ---------------------------------------------------
+   CONTROLE DE CORES DETALHADO (Mude os códigos HEX aqui)
+   --------------------------------------------------- */
+
+/* 2. Título Principal da Tela (h1) */
+h1 {{
+    color: #1DB954 !important; /* Verde brilhante */
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5); /* Sombra para destacar do fundo */
+}}
+
+/* 3. Textos de descrição e parágrafos (p) */
+p {{
+    color: #E0E0E0 !important; /* Cinza claro para não cansar a vista */
+}}
+
+/* 4. Títulos das Caixas de Seleção (Labels) */
+label {{
+    color: #111111 !important;
+    font-weight: bold !important;
+}}
+</style>
+"""
+st.markdown(css_fundo, unsafe_allow_html=True)
+
 # ========================================================
 # CONFIGURAÇÃO DA PÁGINA DO APP (Visual Mobile-Friendly)
 # ========================================================
@@ -14,6 +59,32 @@ st.set_page_config(
     #initial_sidebar_state="collapsed"
 )
 
+# ==================================
+# SISTEMA DE SEGURANÇA E LOGIN
+# ==================================
+# 1. Cria a variável na memória se ela não existir
+if 'autenticado' not in st.session_state:
+    st.session_state.autenticado = False
+
+# 2. Tela de Login (Só aparece se NÃO estiver autenticado)
+if not st.session_state.autenticado:
+    # Coloquei numa caixinha para ficar centralizado e bonito
+    col1, col2, col3 = st.columns([1, 2, 1])
+    with col2:
+        st.markdown("### 🔐 Senha de Acesso")
+        senha_digitada = st.text_input("🔐 Digite a senha para acessar o Simulador", type="password")
+        
+        # O botão de entrar que você pediu
+        if st.button("Entrar", use_container_width=True):
+            if senha_digitada == "FIFACup2026": # Substitua pela sua senha
+                st.session_state.autenticado = True
+                st.rerun() # O rerun recarrega a página instantaneamente
+            else:
+                st.error("Senha incorreta. Tente novamente.")
+    
+    # O st.stop() bloqueia o resto do código até a pessoa acertar a senha
+    st.stop()
+    
 st.title("⚽ Simulador de Jogos - Copa 2026")
 st.markdown("Preveja o placar de qualquer confronto utilizando Inteligência Artificial.")
 
