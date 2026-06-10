@@ -1,0 +1,18 @@
+[theme]
+# Trava o aplicativo no Modo Escuro (Dark Mode) para sempre
+base = "dark"
+
+# Cor do texto principal bem escura (Quase preto para dar contraste com o fundo claro)
+textColor = "#FFFFFF"
+
+# Cor de fundo dos menus laterais e caixas de seleção (Branco ou cinza bem claro)
+secondaryBackgroundColor = "#262730"
+
+# Cor do fundo principal (Aparece caso a imagem de fundo demore alguns segundos para carregar)
+backgroundColor = "#1DB953"
+
+# Cor principal (Botões e destaques) - Pode manter o verde ou colocar a cor que preferir
+primaryColor = "#1DB954"
+
+# Fonte do texto
+font = "sans serif"
